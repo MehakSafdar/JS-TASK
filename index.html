@@ -8,9 +8,10 @@
 </head>
 <body>
     <div>
-        <input type="file" id="fileInput" accept=".doc, .docx">
-        <button id="convertBtn">Convert to PDF</button>
-        <div id="result"></div>
+        <form action="https://v2.convertapi.com/convert/docx/to/pdf?Secret=1tFCVfMy2kl1yq9Y&download=attachment" method="post" enctype="multipart/form-data">
+            <input type="file" name="File" />
+            <input type="submit" value="Convert file"/>
+        </form>
     </div>
     <script src="script.js"></script>
 </body>

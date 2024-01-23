@@ -13,28 +13,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Function to convert Word document to PDF
+    // Function to convert Word document to PDF using ConvertAPI
     async function convertToPDF(file) {
         try {
-            // Use your API to convert the Word document to PDF
+            // Use ConvertAPI to convert the Word document to PDF
             const pdfBlob = await convertToPDFUsingAPI(file);
 
             // Create a Blob URL for the converted PDF
             const pdfBlobUrl = URL.createObjectURL(pdfBlob);
 
-            // Create a link element for download
-            const downloadLink = document.createElement('a');
-            downloadLink.href = pdfBlobUrl;
-            downloadLink.download = 'converted_document.pdf';  // Set the desired file name
-
-            // Trigger a click on the link to start the download
-            downloadLink.click();
-
-            // Cleanup: remove the link from the document
-            document.body.removeChild(downloadLink);
+            // Open the converted PDF in a new tab or window
+            window.open(pdfBlobUrl, '_blank');
 
             // Display a success message in the resultDiv
-            const conversionResult = 'Conversion successful! Download initiated.';
+            const conversionResult = 'Conversion successful! PDF opened.';
             resultDiv.innerHTML = conversionResult;
         } catch (error) {
             console.error('Error during conversion:', error);
@@ -42,19 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Function to simulate converting to PDF using your API
+    // Function to convert Word document to PDF using ConvertAPI
     function convertToPDFUsingAPI(file) {
-        // Replace this with your actual API logic for converting Word to PDF
-        return new Promise(resolve => {
-            // Dummy implementation: Create a PDF Blob with a sample content
-            const samplePDFContent = 'Sample PDF content';
-            const pdfBlob = new Blob([samplePDFContent], { type: 'application/pdf' });
+        
+import ConvertApi from 'convertapi-js'
+let convertApi = ConvertApi.auth('1tFCVfMy2kl1yq9Y')
+let params = convertApi.createParams()
+params.add('File', elFileInput.files[0]);
+let result = await convertApi.convert('docx', 'pdf', params)
 
-            // Simulate API delay with a timeout
-            setTimeout(() => {
-                resolve(pdfBlob);
-            }, 2000);  // Simulating a 2-second API response time
+            } catch (error) {
+                reject(error);
+            }
         });
-    }
-});
-
